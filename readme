@@ -1,0 +1,18 @@
+### prerequirments
+BLASTn  :  https://blast.ncbi.nlm.nih.gov/doc/blast-help/downloadblastdata.html
+minimap2  :  https://github.com/lh3/minimap2
+samtools  :  https://github.com/samtools/samtools
+python >= 3.7
+
+### File input
+
+1. Target species DNA sequences in Fasta file format
+2. Stereo-seq unmapped bam file
+3. Host species genome in Fastaa file format
+
+### step by step script
+
+
+
+### Main script
+
