@@ -11,6 +11,28 @@ python >= 3.7
 3. Host species genome in Fastaa file format
 
 ### step by step script
+host_ref_dir='/data/work/blast/reference/GRCm39/Mus_musculus.GRCm39.dna.toplevel.fa'
+micro_ref_dir='/data/work/blast/reference/Akks/Akks'
+fq_dir='/data/work/blast/data/W202311170002/'
+output_dir='/data/work/blast/output/4_Akks/C03030D3'
+sample_name='C03030D3'
+ref_length_file='/data/work/blast/reference/Akks/ref_length.txt'
+### step1 minimap2
+#mkdir $output_dir/01.minimap
+#for file in $(ls $fq_dir|grep .fq)
+#do
+#/data/work/softwares/minimap2/minimap2/minimap2 -ax sr -t 5 $host_ref_dir $fq_dir$file >  $output_dir/01.minimap/$file.sam
+#done
+#cat $output_dir/01.minimap/*.sam > $output_dir/01.minimap/all.sam
+#/data/work/softwares/samtools-1.19/samtools view -bS $output_dir/01.minimap/all.sam > $output_dir/01.minimap/all.bam
+#rm $output_dir/01.minimap/*.sam
+#/data/work/softwares/samtools-1.19/samtools fasta -f 4 $output_dir/01.minimap/all.bam > $output_dir/01.minimap/unmapped.fasta
+
+### step2 blastn
+#mkdir $output_dir/02.blastn
+/data/work/softwares/blast/ncbi-blast-2.15.0+/bin/blastn -outfmt 6 -num_threads 5 -db $micro_ref_dir -query  $output_dir/01.minimap/unmapped.fasta  -out $output_dir/02.blastn/$sample_name.blast.out
+cd $output_dir/02.blastn
+python3 /data/work/scripts/blastout2gem.py $ref_length_file $output_dir/02.blastn/$sample_name.cov.txt
 
 
 
